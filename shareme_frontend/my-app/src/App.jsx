@@ -1,14 +1,15 @@
 import React from 'react'
-import { Routes,Route,useNavigate } from 'react-router-dom';
+import { BrowserRouter,Routes,Route,useNavigate } from 'react-router-dom';
 import Login from './components/login';
 import Home from './container/home';
 const App = () => {
   return (
-    <routes>
-      <Route path = "/login" element = {<Login />} />
-      <Route path = "/" element = {<Home />} />
-
-    </routes>
+    <BrowserRouter>
+      <Routes>
+        <Route path = "/login" element = {<Login />} />
+        <Route path = "/" element = {<Home />} />
+      </Routes>
+    </BrowserRouter>
   )
 }
 
