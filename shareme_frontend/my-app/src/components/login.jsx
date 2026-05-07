@@ -1,52 +1,57 @@
 import React from 'react'
-import { GoogleLogin } from '@react-oauth/google';
+import { useGoogleLogin } from '@react-oauth/google';
 import { useNavigate } from 'react-router-dom'
 import { FcGoogle } from 'react-icons/fc';
 import shareVideo from '../assets/share.mp4';
 import logo from '../assets/logowhite.png';
+
 const Login = () => {
-  const responseGoogle = (response)=>{
+  const navigate = useNavigate();
+  
+  const responseGoogle = (response) => {
+    console.log('Success:', response);
+    localStorage.setItem('user', JSON.stringify(response));
+    navigate('/');
+  };
+  const login = useGoogleLogin({
+  onSuccess: responseGoogle,
+  onError: () => console.log("Login Failed"),
+});
 
-  }
   return (
-    <div className = "flex justify-start items-center flex-col h-screen">
-      <div className = "relative w-full h-full">
-        <video
-        src = {shareVideo}
-        type= "video/mp4"
-        loop
-        controls = {false}
-        muted
-        autoPlay
-        className ='w-full h-full object-cover'
-        />
-        <div className = "absolute flex flex-col justify-center items-center top-0 right-0 left-0 bottom-0 bg-blackOverlay">
-          <div className='p-5'>
-            <img src = {logo}  width = "130px" alt='logo'/>
-          </div>
+  <div className="relative w-full h-screen overflow-hidden">
 
-          <div classname = "shadow-2xl">
-            <GoogleLogin 
-              clientId=''
-              render = {(renderProps)=>(
-                <button
-                  type = "button"
-                  className = "bg-maincolor flex justify-center items-center p-3 rounded-lg cursor-pointer outline-none"
-                  onclick = {renderProps.onclick}
-                  disabled = {renderProps.disabled}  
-                >
-                  <FcGoogle classname = "mr-4" />Sign in with Google
-                </button>
-              )}/>
-              onSuccess = {responseGoogle}
-              onFailure = {responseGoogle}
-              cookiePolicy = "single_host_origin"
-          </div>
-        </div>
+    <video
+      src={shareVideo}
+      loop
+      muted
+      autoPlay
+      className="absolute top-0 left-0 w-full h-full object-cover"
+    />
+
+    <div className="absolute inset-0 bg-black/40 backdrop-blur-sm flex flex-col justify-center items-center">
+
+      {/* Logo */}
+      <div className="w-40 mb-6">
+        <img src={logo} alt="logo" />
       </div>
+
+      {/* Button */}
+      <div className="shadow-2xl">
+        <button
+          onClick={() => login()}
+          className="bg-white flex items-center justify-center gap-3 px-6 py-3 rounded-lg hover:bg-gray-100 transition duration-300 min-w-[240px]"
+        >
+          <FcGoogle className="text-xl" />
+          <span className="text-gray-700 font-medium">
+            Sign in with Google
+          </span>
+        </button>
+      </div>
+
     </div>
-    
-  )
+  </div>
+);
 }
 
 export default Login
