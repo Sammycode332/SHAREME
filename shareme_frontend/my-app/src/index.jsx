@@ -6,7 +6,6 @@ import App from './App.jsx';
 
 
 const GOOGLE_CLIENT_ID = import.meta.env.VITE_GOOGLE_CLIENT_ID;
-console.log("GOOGLE_CLIENT_ID:", GOOGLE_CLIENT_ID)
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
