@@ -5,14 +5,30 @@ import { FcGoogle } from 'react-icons/fc';
 import shareVideo from '../assets/share.mp4';
 import logo from '../assets/logowhite.png';
 
+
+import { client } from '../client.js';
 const Login = () => {
   const navigate = useNavigate();
   
-  const responseGoogle = (response) => {
-    console.log('Success:', response);
-    localStorage.setItem('user', JSON.stringify(response));
-    navigate('/');
-  };
+  const responseGoogle = async (response) => {
+    const userInfo = await fetch('https://www.googleapis.com/oauth2/v3/userinfo', {
+      headers: { Authorization: `Bearer ${response.access_token}` },
+    }).then(res => res.json());
+
+    localStorage.setItem('user', JSON.stringify(userInfo));
+    const { name, sub, picture } = userInfo;
+
+    const doc = {
+      _id: sub,
+      _type: 'user',
+      userName: name,
+      image: picture,
+    };
+
+    client.createIfNotExists(doc).then(() => {
+      navigate('/', { replace: true }); // ✅ fixed
+    });
+};
   const login = useGoogleLogin({
   onSuccess: responseGoogle,
   onError: () => console.log("Login Failed"),
