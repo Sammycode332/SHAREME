@@ -103,3 +103,10 @@ code {
   padding: 4px 8px;
   background: var(--code-bg);
 }
+@keyframes slide-in {
+  0% { transform: translateX(-200px); }
+  100% { transform: translateX(0px); }
+}
+.animate-slide-in {
+  animation: slide-in 0.5s ease-out;
+}
