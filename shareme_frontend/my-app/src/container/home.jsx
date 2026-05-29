@@ -19,13 +19,14 @@ const Home = () => {
   
   useEffect(() => {
      console.log('userInfo:', userInfo)       
-     console.log('googleId:', userInfo?.googleId)
-    const query = userQuery(userInfo?.sub);
+     console.log('googleId:', userInfo?.sub)
+     const query = userQuery(userInfo?.sub);
       console.log('query:', query)           
    
 
     client.fetch(query).then((data) =>{
       console.log('user data:', data) 
+       console.log('full user object:', JSON.stringify(data[0]))
       setUser(data[0]);
     })
   }, [userInfo?.googleId]); 
@@ -49,7 +50,7 @@ const Home = () => {
            <img src = {logo} alt = "logo" className = "w-28"/>
            </Link>
            <Link to = {`user-profile/${user?._id}`}>
-           <img src = {user?.picture || userInfo?.picture} alt = "user" className = "w-12 h-12 rounded-full object-cover"/>
+           <img src = {user?.image || userInfo?.image} alt = "user" className = "w-12 h-12 rounded-full object-cover" referrerPolicy="no-referrer"/>
            </Link>
         </div>
         {toggleSidebar && (
