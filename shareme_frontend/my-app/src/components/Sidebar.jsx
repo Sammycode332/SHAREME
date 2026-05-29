@@ -59,7 +59,7 @@ const Sidebar = ({ user, closeToggle }) => {
           onClick = {handleCloseSidebar}
           
           >
-            <img src = {user?.picture || user?.image} className = "w-10 h-10 rounded-full" alt = "user-profile"/>
+            <img src = {user?.picture || user?.image} className = "w-10 h-10 rounded-full" alt = "user-profile" referrerPolicy="no-referrer"/>
             <p>{user.userName}</p>
         </Link>
       )}
