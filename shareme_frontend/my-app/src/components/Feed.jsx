@@ -2,7 +2,7 @@ import React, { useState, useEffect }from 'react';
 import { useParams } from 'react-router-dom';
 
 import { client } from '../client';
-import { feedQuery, searchQuery } from '../utils/data';
+import { feedQuery, SearchQuery } from '../utils/data';
 import MasonryLayout from './MasonryLayout';
 
 import Spinner from './Spinner';
@@ -28,7 +28,9 @@ const Feed = () => {
 
   if(loading) return <Spinner message = "We are adding new ideas to your feed!" />
   return (
-    <div>Feed</div>
+    <div>
+      {pins && <MasonryLayout pins= {pins}/>}
+    </div>
   )
 }
 
