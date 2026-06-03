@@ -54,7 +54,7 @@ const CreatePin = ({user}) => {
           userId: user._id,
           postedBy: {
             _type: 'postedBy',
-            _ref: 'user._id',
+            _ref: user._id,
           },
           category,
         }
@@ -65,7 +65,7 @@ const CreatePin = ({user}) => {
       } else{
         setFields(true)
 
-        setTimeout(()=> setFeids(false),2000)
+        setTimeout(() => setFields(false),2000)
       }
     }
   return (
