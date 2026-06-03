@@ -51,7 +51,7 @@ const Home = () => {
            <Link to = "/">
            <img src = {logo} alt = "logo" className = "w-28"/>
            </Link>
-           <Link to = {`user-profile/${user?._id}`}>
+           <Link to = {`/user-profile/${user?._id}`}>
            <img src = {user?.image || userInfo?.image} alt = "user" className = "w-12 h-12 rounded-full object-cover" referrerPolicy="no-referrer"/>
            </Link>
         </div>
