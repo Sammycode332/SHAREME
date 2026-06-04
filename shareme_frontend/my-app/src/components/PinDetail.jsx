@@ -89,12 +89,12 @@ const PinDetail = ({user}) => {
            <a href={pinDetail.destination?.startsWith('http')
     ? pinDetail.destination
     : `https://${pinDetail.destination}`
-  } target = "_blank" rel = "noreferrer">
+  }  rel = "noreferrer">
             {pinDetail.destination}
            </a>
         </div>
         <div>
-          <h1 className = "text-4xl font-bold break-words mt-3">
+          <h1 className = "text-4xl font-bold break-words mt-3 !text-black">
             {pinDetail.title}
           </h1>
           <p className = "mt-3 ">
