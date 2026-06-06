@@ -8,7 +8,7 @@ import {client} from '../client';
 import MasonryLayout from './MasonryLayout';
 import Spinner from './Spinner';
 
-const randomImage = "https://picsum.photos/1600/900";
+const randomImage = "https://picsum.photos/seed/pin/1600/900";
 
 const activeBtnStyles = 'bg-red-500 text-white font-bold p-2 rounded-full w-20 outline-none';
 const notActiveBtnStyles = 'bg-primary mr-4 text-black font-bold p-2 rounded-full w-20 outline-none';
@@ -26,9 +26,9 @@ const UserProfile = () => {
 
   navigate('/login');
 };
-
   
    useEffect(() => {
+    if (!userId) return;
     const query = userQuery(userId);
     client.fetch(query)
     .then((data) => {
@@ -37,6 +37,7 @@ const UserProfile = () => {
   }, [userId]);
 
   useEffect(() => {
+    if (!userId) return;
     if(text === 'Created'){
       const createdPinsQuery = userCreatedPinsQuery(userId);
 
@@ -53,9 +54,8 @@ const UserProfile = () => {
   }
 }, [text, userId]);
     
-   if(!user){
-    return <Spinner message="Loading profile..."/>
-  }
+  if (!userId) return <Spinner message="Invalid profile..." />;
+if (!user) return <Spinner message="Loading profile..." />;
   return (
     <div className='relative pb-2 h-full justify-center items-center text-black'>
   <div className='flex flex-col pb-5'>
@@ -67,12 +67,13 @@ const UserProfile = () => {
           className='w-full h-370 2xl:h-510 shadow-lg object-cover'
           alt="banner-pic"
         />
-
-        <img
-          className='rounded-full w-20 h-20 -mt-10 shadow-xl object-cover'
-          src={user.image}
-          alt="user-pic"
-        />
+        {user?.image && (
+          <img
+            className='rounded-full w-20 h-20 -mt-10 shadow-xl object-cover'
+            src={user.image}
+            alt="user-pic"
+          />
+        )}
 
         <h1 className='font-bold text-3xl text-center mt-3 !text-black'>
           {user.userName}
